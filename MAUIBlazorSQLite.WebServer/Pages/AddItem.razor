@@ -1,0 +1,68 @@
+﻿@page "/additem"
+@using MAUIBlazorSQLite.Data.Entities;
+@inject NavigationManager NavigationManager
+@using MAUIBlazorSQLite.ComponentLibrary
+@using MAUIBlazorSQLite.WebServer.Data
+
+<h3>Add an Item</h3>
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Example select</label>
+        <select class="form-control" @bind="DayOfTheWeek">
+            <option>select a day</option>
+            @foreach (var day in DaysOfTheWeek)
+            {
+                <option value="@day">@day</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Title</label>
+        <input type="text" class="form-control" @bind-value="Title" placeholder="Go to a Party">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea class="form-control" rows="3" @bind="Description"></textarea>
+    </div>
+    <br />
+    <ButtonComponent Text="Submit" OnClickEvent="AddItemToDb" />
+</form>
+
+
+@code {
+
+    public string Title { get; set; }
+    public string Description { get; set; }
+
+    protected string dayOfTheWeek;
+    public string DayOfTheWeek
+    {
+        get
+        {
+            return dayOfTheWeek;
+        }
+        set
+        {
+            dayOfTheWeek = value;
+        }
+    }
+
+    private static readonly string[] DaysOfTheWeek = new[]
+    {
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    };
+
+    public void AddItemToDb()
+    {
+        using (var context = new TodoDbContext())
+        {
+            int count = context.ToDo.ToList().Count();
+            var ObjectToInsert = new ToDo() { TitleText = Title, DescriptionText = Description, DayOfTheWeekText = DayOfTheWeek };
+
+            context.ToDo.Add(ObjectToInsert);
+            context.SaveChanges();
+            NavigationManager.NavigateTo("todolist");
+        }
+    }
+}

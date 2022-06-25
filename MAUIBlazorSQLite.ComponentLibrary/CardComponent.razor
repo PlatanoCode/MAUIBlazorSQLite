@@ -1,0 +1,16 @@
+﻿<div class="card text-white bg-primary mb-3" >
+  <div class="card-header">@DayOfTheWeekText</div>
+  <div class="card-body">
+    <h5 class="card-title">@TitleText</h5>
+    <p class="card-text">@DescriptionText</p>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public string DayOfTheWeekText { get; set; }
+    [Parameter]
+    public string TitleText { get; set; }
+    [Parameter]
+    public string DescriptionText { get; set; }
+}

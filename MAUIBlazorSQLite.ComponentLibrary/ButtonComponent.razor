@@ -1,0 +1,12 @@
+﻿@using MAUIBlazorSQLite.ComponentLibrary.Enums
+<button type="button" class="btn @ButtonColor" style="margin-bottom:15px;" @onclick="OnClickEvent" >@Text</button>
+@code {
+    [Parameter]
+    public string Text { get; set; }
+    [Parameter]
+    public string ButtonColor { get; set; } = ButtonStyleColors.Primary;
+    [Parameter]
+    public Action OnClickEvent { get; set; }
+
+    
+}

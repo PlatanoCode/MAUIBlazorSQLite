@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MAUIBlazorSQLite.ComponentLibrary\MAUIBlazorSQLite.ComponentLibrary.csproj" />
+    <ProjectReference Include="..\MAUIBlazorSQLite.Data\MAUIBlazorSQLite.Data.csproj" />
+  </ItemGroup>
+
+</Project>

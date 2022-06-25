@@ -1,0 +1,40 @@
+﻿@page "/todolist"
+@using MAUIBlazorSQLite.ComponentLibrary
+@using MAUIBlazorSQLite.WebServer.Data;
+@using MAUIBlazorSQLite.Data.Entities;
+@inject NavigationManager NavigationManager
+@using System;
+
+<h3>TodoList</h3>
+
+<ButtonComponent Text="Add Item" OnClickEvent="AddMoreItem" />
+
+@foreach (var carditem in ListCard)
+{
+
+    <CardComponent TitleText="@carditem.TitleText" DayOfTheWeekText="@carditem.DayOfTheWeekText" DescriptionText="@carditem.DescriptionText" />
+}
+
+@code {
+    public List<TodoListDTO> ListCard { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using (var context = new TodoDbContext())
+        {
+            var result = context.ToDo.ToList();
+
+            foreach (var item in result)
+            {
+
+                ListCard.Add(new TodoListDTO { TitleText = item.TitleText, DescriptionText = item.DescriptionText, DayOfTheWeekText = item.DayOfTheWeekText });
+            }
+            await Task.CompletedTask;
+        }
+    }
+
+    public void AddMoreItem()
+    {
+        NavigationManager.NavigateTo("additem");
+    }
+}
